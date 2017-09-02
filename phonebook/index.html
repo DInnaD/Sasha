@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>phnebook</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Phonebook">
+    <meta name="keywords" content="Phonebook">
+    <meta name="autor" content="Sakovets Oleksandr">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+<body onload="seeCntakt()">
+    <header class="header">
+    <div class="logo, clearfix">
+    <div class="png">
+        <img src="img/logo.png">
+    </div>
+    <div class="book">
+        <p>ContactBook</p>
+       <p><input type="text" name="Search" placeholder="Search" onkeyup="Search()" id="poisk"></p>
+    </div>
+    <div class="add">
+        <button id="add">New contact</button>
+    </div>
+    </div>
+    </header>
+
+<div class="namebloc, clearfix">
+    <ul id="spisok">
+
+    </ul>
+
+
+
+</div>
+<div id="form1" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="" method="get" name="contact" id="form">
+            <label for="name1">Name:</label> <input type="text" name="name1" value="" id="name1"><br><br>
+            <label for="surname">Surname:</label><input type="text" name="surname" value="" id="surname"><br><br>
+            <label for="phone">Phone:</label><input type="text" name="phone" value="" id="phone">
+                <a onclick="return addField()" href="#">Add phone</a>
+                <div id="parentId"></div><br>
+            <label for="emale">E-male:</label><input type="text" name="emale" value="" id="emale"><br><br>
+            <input type="button" onclick="valid(document.getElementById('form'))" name="submit" value="Add contact" id="vvod">
+        </form>
+    </div>
+</div>
+
+
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    $('div').hide(); //прячет все дивы на странице
+    $('div[name="lol"]').hide();  //прячет только те дивы, у которых есть name="lol"
+    $('[name="lol"]').hide();  //прячет все элементы, у которых есть name="lol"
+    Нужно понимать логику работы: сначала идёт выборка всех элементов - получаем набор объектов, а потом разом у всех получаем один html(), но у элементов нет одного общего на всех кода. Также нельзя получить, например, высоту каждого из блоков разом (если высота не задана в стилях для всех ) -так как у них нет общей высоты. Т.е. то, что индивидуально нужно получать в цикле.
+    Ваш пример - поступают таким образом:
+    JavascriptВыделить код
+    var kod="";
+    $('.dd').each(function(){
+    var dd = $(this).html()
+    kod=kod+dd;
+    });
+    alert(kod);
+    $('.dd').hide();-->
+    <!--
+    1 grupa na back-end Danylevska Inna , @media dopyshu do 10 chysla, , view: https://dinnad.github.io/danylevskafinal/ html: https://github.com/DInnaD/danylevskafinal/blob/master/indexfinal.html css: https://github.com/DInnaD/danylevskafinal/blob/master/css/stylefinal.css
+    -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>GeneralBook</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="libs/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://use.fontawesome.com/053cca04b2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+</head>
+
+
+
+<body onload="fetchBookmarks()">
+<div id="mymap"></div>
+<!--div class="map-wrapper">
+  <ui-gmap-google-map><div id="mymap"></div></ui-gmap-google-map>
+</div>
+<style>
+.map-wrapper {
+position: relative;
+height: calc(100vh - 4em - 64px);
+}
+.angular-google-map-container {
+position: absolute;
+top: 0;
+bottom: 0;
+right: 0;
+left: 0;
+}
+-->
+
+<div id="contactform">
+    <style>
+        input[type=text] {
+            width: 130px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 0;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 19px 10px 2px 50px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        input[type=text]:focus {
+            width: 100%;
+        }
+    </style>
+
+
+
+
+
+
+
+
+    <!--script>
+    /*var searchForm = document.getElementById('search');*/
+    /*var seeSearchForm = document.getElementById('search');*/
+    input=document.getElementsByTagName("input")[0]
+    d=document.getElementsByTagName("div")[0]
+
+    /*input.style.width="100%"*/
+
+
+    base=[ ' Служебный номер АТС 35 Отдел автоматизации систем управления предприятием АТС 7700 48-500',
+     ' Дежурные водители водители 10 Транспортный цех бокс для автомобилей № 3 1876 68-501',
+     ' Петрова Лидия Николаевна Ведущий товаровед 25 Отдел материально-технического обеспечения №3- общий кабинет товароведов 6733 83-782 7-90-06',
+
+    ]
+
+    search=function(pattern){
+    var out=[]
+    var re=new RegExp(pattern, "i")
+    for(var i=0; i<base.length; i++){
+    if(base[i].match(re)) {
+    base[i]=base[i].replace(/((\d{4} \d{2}-\d{3})|(\d{4} \d{2}-\d{3} \d{1}-\d{2}-\d{2}))$/, "<b>$1</b>")
+    out.push(base[i])
+    }
+
+    }
+    return out
+    }
+
+    firstSearch=function(){
+    d.innerHTML=""
+    input.style.color=null
+    var out=search(input.value)
+    if(out.length<1) return secondSearch()
+    var str=out.join("<br><br>")
+    d.innerHTML=str
+    }
+
+    secondSearch=function(){
+    input.style.color="red"
+    d.innerHTML="I don't know <b>"+input.value+"</b>"
+    }
+    onload=firstSearch
+    input.oninput=firstSearch
+    input.focus()
+    onkeydown=function(){input.focus()}
+    </script-->
+
+
+
+    <form id="search" action="#">
+
+
+        <span><input id="search" type="text" name="search" placeholder="Search.."></span>
+        <span> <button onclick="talk()" style="background: none; border:none; padding-top: 3px;"><i class="fa fa-microphone" aria-hidden="true" ></i></button></span>
+
+        <span><button onclick="stop()" style="background: none; border:none; padding-top: 3px;"><i class="fa fa-microphone-slash" aria-hidden="true" ></i></button></span><span><a href="#" id="toggler" class="btn btn-circle" title="AddNew" style="color: #42DCA3;"><i class="fa fa-plus" aria-hidden="true" ></i></a></span><!--*******************+code +add to span***********************************************************myFavorite-->
+        <!--span><input type="submit" value="Submit"  /></span-->
+    </form>
+    <input></input><!--*******************+code +add to span***********************************************************myFavorite-->
+    <hr><!---*****************************************************************myFavorite*-->
+    <div></div><!---*****************************************************************myFavorite*-->
+    <hr>
+
+    <!--div id="navigation">
+        <ul class="nav-list">
+<li id="js-show-instruction" class="btn btn-circle" ><i class="fa fa-info-circle" aria-hidden="true"></i></li-->
+    <div class="brand"><!--a href="#" id="toggler" title="Click what to do" style="color: #42DCA3;"-->
+        <i class="fa fa-info-circle" aria-hidden="true" style="35px !important;"></i><!--/a-->General Book</div><!--"brand"-->
+
+
+    <!--h5></h5>
+    <p style="color: #fff !important; font-size: 0.8em;">Instruction
+    <br>1. <br>
+
+    2. <br>
+
+    3. <br>
+    4. </p-->
+
+
+
+
+
+
+    <script>
+        window.onload= function() {
+            document.getElementById('toggler').onclick = function() {
+                openbox('box', this);
+                return false;
+            };
+        };
+        function openbox(id, toggler) {
+            var div = document.getElementById(id);
+            if(div.style.display == 'block') {
+                div.style.display = 'none';
+                toggler.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i>';
+            }
+            else {
+                div.style.display = 'block';
+                toggler.innerHTML = '<i class="fa fa-ban" aria-hidden="true"></i>';
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+    <script>
+        var result = '';
+        // Создаем распознаватель
+        var recognizer = new webkitSpeechRecognition();
+        // Ставим опцию, чтобы распознавание началось ещё до того, как пользователь закончит говорить
+        recognizer.interimResults = true;
+        // Какой язык будем распознавать?
+        recognizer.lang = 'ru-Ru';//en-En
+        //Используем колбек для обработки результатов
+        recognizer.onresult = function (event) {
+            result = event.results[event.resultIndex];//var
+            if (result.isFinal) {
+                //alert('Вы сказали: ' + result[0].transcript);
+                if (result[0]=="hi"){
+                    open folder/URL oor start recording or answer send to social media;}
+            } else {
+                console.log('Промежуточный результат: ',
+                    result[0].transcript);
+            }
+        };
+        function speech (result) {//(result)
+            // Начинаем слушать микрофон и распознавать голос
+            recognizer.start();
+        }
+        var synth = window.speechSynthesis;//var synth = window.event.results[event.resultIndex];
+
+        /*let my=new obj(function whic to config this let=my with obj methods )***************************************************/
+        /**new*/
+        var utterance = new SpeechSynthesisUtterance('How about we say this now? This is quite a long sentence to say.');
+        //var utterance1 = result;//??????????????????
+        function talk () {
+            synth.speak (utterance);
+        }
+        function stop () {
+            synth.pause();
+        }
+    </script>
+
+
+
+
+
+
+    <!--div class="container">
+      <div class="header clearfix">
+        <nav>
+        </nav>
+
+      </div-->
+
+
+
+
+    <div class="content">
+        <div id="box" style="display: none; text-align: center; position: relative;">
+            <div class="jumbotron">
+
+                <form id="myForm">
+                    <div class="form-group">
+                        <label></label>
+                        <input type="text" class="form-control" id="sName" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                        <input type="text" class="form-control" id="sPhone" placeholder="Phone">
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                        <input type="text" class="form-control" id="sEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                        <input type="text" class="form-control" id="sUrl" placeholder="URL">
+                    </div>
+                    <button type="submit" class="btn btn-circle">Submit</button>
+                </form>
+            </div></div>
+
+
+
+
+        <!--a class="toggler" href="#">add new</a-->
+        <div id="navigation">
+            <ul class="nav-list">
+                <li  id="js-show-all" class="btn btn-circle">
+                    <i class="fa fa-users" aria-hidden="true"></i></li>
+                <li id="js-search" class="btn btn-circle">
+                    <i class="fa fa-search" aria-hidden="true"></i></li>
+                <li id="js-add-new" class="btn btn-circle"><a class="toggler" href="#">
+                    <i class="fa fa-plus" aria-hidden="true"></i></a></li>
+
+            </ul>
+        </div>
+
+        <!--button onclick="speech ()">Слушать</button-->
+
+        <!--/div--><!--a class="toggle" href="#">add new</a-->
+
+
+
+        <div class="row marketing">
+            <div class="col-lg-12">
+                <hr>
+                <div id="results" style="color: #410b0b;
+    text-align: center;
+    font-size: 16px;
+    background: #fff;
+    position: relative;
+    padding-top: 10px;">
+
+                    <!--div id="navigation">
+                        <ul class="nav-list">
+                        <li id="js-edit" class="btn btn-circle"><i class="fa fa-pencil" aria-hidden="true"></i></li>
+                        <li id="js-get-all" class="btn btn-circle" style="padding: 7px;"><i class="fa fa-angle-double-down animated" aria-hidden="true"></i></li>
+                        <li id="js-delete" class="btn btn-circle"><i class="fa fa-trash-o" aria-hidden="true"></i></li>
+                        </ul>
+                    </div-->
+                </div><!--"results"-->
+
+                <div id="bookmarksResults"></div>
+            </div>
+        </div>
+
+
+
+    </div> <!-- /container -->
+</div><!--"black"-->
+<script type="text/javascript">
+    ;(function(global){
+        /***************************************** let AddressBook = function(name,phone,email,url){
+     return new AddressBook.init(name,phone,email,url);
+   };
+
+         AddressBook.prototype = {
+     //default functions
+     data:[
+       //add data here
+     ],
+     searchResults:[
+
+     ],
+     addNewContact:function(name,phone,email,url){
+       this.data.push({
+         name: sName,
+         phone: sPhone,
+         email: sEmail,
+         url: sUrl
+       });
+       return this;
+     },
+     save:function(){
+       //save to local storage. This isn't hugely necessary
+
+     },
+     returnAll:function(){
+       return this.data;
+     },
+     displayData:function(){
+       this.log(this.data);
+       return this;
+     },
+     log:function(data){
+       console.log(data);
+       return this;
+     },
+     search:function(searchTerm){
+       if(this.data.length){
+         for(var i=0;i<this.data.length;i++){
+           if(this.data[i].name.toLowerCase() == searchTerm.toLowerCase() || this.data[i].phone.toLowerCase() == searchTerm.toLowerCase() || this.data[i].mail.toLowerCase() == searchTerm.toLowerCase() this.data[i].url.toLowerCase() == searchTerm.toLowerCase()){
+             console.error(this.data[i]);
+             this.searchResults.push(this.data[i]);
+           }
+         }
+
+         return this.searchResults;
+      /* }else if(this.data.length){
+         for(var i=0;i<this.data.length;i++){
+           if(this.data[i].name.toLowerCase() == searchTerm.toLowerCase()){
+             console.error(this.data[i]);
+             this.searchResults.push(this.data[i]);
+           }
+         }
+
+         return this.searchResults;*/
+        /*****************************************  }else{
+         console.log("There are no results");
+       }
+         return this;
+         },
+         lastResults:function(){
+       return this.searchResults;
+     }
+         }
+
+         AddressBook.init=function(name,phone,email,url){
+     let self = this;
+     //set up the address book
+     if(name || phone || email | url){
+       self.addNewContact(name || "", phone || "", email || "", url || "");
+     }
+
+   }
+
+         AddressBook.init.prototype = AddressBook.prototype;
+
+         global.AddressBook = $ab = AddressBook;
+         })(window);
+         if(!window.contactList){ //check if we already have a contact list
+   window.contactList=$ab();
+  }
+         let searchForm = document.getElementById('search');
+         searchForm.addEventListener('submit', function(){
+  let results;
+  if(results !== undefined){
+    results = null;
+  }
+  if(!window.contactList){
+    window.contactList = $ab();
+  }else{
+    results = contactList.search(searchForm.search.value);
+  }
+  document.getElementById('results').innerHTML = '';
+  if(results.length>0){
+
+    for(let i = 0;i<results.length;i++){
+      document.getElementById('results').innerHTML += '<div class="wel" class="contact-item">Name:'+results[i].name+'<br>Phone:'+results[i].phone+'<br>Mail:'+results[i].phone+'<br>URL:'+results[i].url+'</div>' + '<div><a class="btn btn-default" target="_blank" href="'+url+'">Visit</a> ' +
+                                  ' <a onclick="editBookmark(\''+phone+mail+url+'\')" class="btn btn-danger" href="#">Edite</a> ' +
+                                  ' <a onclick="deleteBookmark(\''+phone+mail+url+'\')" class="btn btn-danger" href="#">Delete</a> ' +
+                                  '</h3>'+;
+    }
+  } else{
+   document.getElementById('results').innerHTML += '<hr><div class="contact-item">There are no results for this name</div><hr>';
+  }
+
+  //do something with the results
+  event.preventDefault();
+});*****************************************not work:)***********/
+// Listen for form submit
+        document.getElementById('myForm').addEventListener('submit', saveBookmark);
+// Save Bookmark
+        function saveBookmark(e){
+            // Get form values
+            let sName =document.getElementById('sName').value;
+            let sPhone =document.getElementById('sPhone').value;
+            let sMail =document.getElementById('sEmail').value;
+            let sUrl =document.getElementById('sUrl').value;
+            if(!validateForm(sName, sPhone, sMail, sUrl)){
+                return false;
+            }/*******************************************************************empty form exeption*/
+            /*let expression = +~%;
+             let regex = new RegExp(expression);
+             if(!sName, sPhone, sMail, sUrl.match(regex)){
+             alert('Please use a valid data!') ;
+             }*/
+            let bookmark = {
+                name: sName,
+                phone: sPhone,
+                mail: sMail,
+                url: sUrl
+            }
+            /*
+             // Local Storage Test
+             localStorage.setItem('test', 'Hello World');
+             console.log(localStorage.getItem('test'));
+             localStorage.removeItem('test');
+             console.log(localStorage.getItem('test'));
+             */
+            // Test if bookmarks is null
+            if(localStorage.getItem('bookmarks') === null){
+                // Init array
+                let bookmarks = [];
+                // Add to array
+                bookmarks.push(bookmark);
+                // Set to localStorage
+                localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            } else {
+                // Get bookmarks from localStorage
+                let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+                // Add bookmark to array
+                bookmarks.push(bookmark);
+                // Re-set back to localStorage
+                localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            }
+            // Clear form
+            document.getElementById('myForm').reset();
+            // Re-fetch bookmarks
+            fetchBookmarks();
+            // Prevent form from submitting
+            e.preventDefault();
+        }
+// Delete bookmark
+        function deleteBookmark(phone, mail, url){
+            // Get bookmarks from localStorage
+            let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+            // Loop throught bookmarks
+            for(let i =0;i < bookmarks.length;i++){
+                if(bookmarks[i].url == url || bookmarks[i].phone == phone || bookmarks[i].ail == mail){
+                    // Remove from array
+                    bookmarks.splice(i, 1);
+                }
+            }
+            // Re-set back to localStorage
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            // Re-fetch bookmarks
+            fetchBookmarks();
+        }
+// Delete bookmark
+        function editBookmark(name, phone, mail, url){
+            // Get bookmarks from localStorage
+            let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+            // Loop throught bookmarks
+            for(let i =0;i < bookmarks.length;i++){
+                if(bookmarks[i].name == name || bookmarks[i].url == url || bookmarks[i].phone == phone || bookmarks[i].ail == mail){
+                    // Remove from array
+                    bookmarks.splice(i, 1);
+                }
+            }
+            // Re-set back to localStorage
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+            /********EDIT???????????????????????????????*************************************************************???***/
+            document.getElementById('myForm').addEventListener('submit', saveBookmark);
+            function saveBookmark(e){
+                // Get form values
+                let sName =document.getElementById('sName').value;
+                let sPhone =document.getElementById('sPhone').value;
+                let sMail =document.getElementById('sEmail').value;
+                let sUrl =document.getElementById('sUrl').value;
+                if(!validateForm(sName, sPhone, sMail, sUrl)){
+                    return false;
+                }
+                let bookmark = {
+                    name: sName,
+                    phone: sPhone,
+                    mail: sMail,
+                    url: sUrl
+                }
+                /*
+                 // Local Storage Test
+                 localStorage.setItem('test', 'Hello World');
+                 console.log(localStorage.getItem('test'));
+                 localStorage.removeItem('test');
+                 console.log(localStorage.getItem('test'));
+                 */
+                // Test if bookmarks is null
+                if(localStorage.getItem('bookmarks') === null){
+                    // Init array
+                    let bookmarks = [];
+                    // Add to array
+                    bookmarks.push(bookmark);
+                    // Set to localStorage
+                    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+                } else {
+                    // Get bookmarks from localStorage
+                    let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+                    // Add bookmark to array
+                    bookmarks.push(bookmark);
+                    // Re-set back to localStorage
+                    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+                }
+                // Clear form
+                document.getElementById('myForm').reset();
+                /**************************************************************************???**/
+                // Re-fetch bookmarks
+                fetchBookmarks();
+            }
+// Fetch bookmarks
+            function fetchBookmarks(){
+                // Get bookmarks from localStorage
+                let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+                // Get output id
+                let bookmarksResults = document.getElementById('bookmarksResults');
+                // Build output
+                bookmarksResults.innerHTML = '';
+                for(let i = 0; i < bookmarks.length; i++){
+                    let name = bookmarks[i].name;
+                    let phone = bookmarks[i].phone;
+                    /*------------------------------------------look more*/
+                    let mail = bookmarks[i].mail;
+                    let url = bookmarks[i].url;
+
+                    bookmarksResults.innerHTML += '<div class="well">'+
+                        '<h3>'+name+phone+
+                        //---------------------------------------------------------------more
+                        ' <a class="btn btn-default" target="_blank" href="'+name+phone+mail+url+'">More</a> ' +
+                        ' <a class="btn btn-default" target="_blank" href="'+url+'">Visit</a> ' +
+                        ' <a target="_blank" onclick="editBookmark(\''+name+phone+mail+url+'\')" class="btn btn-danger" href="#">Edit</a> ' +
+                        ' <a onclick="deleteBookmark(\''+phone+mail+url+'\')" class="btn btn-danger" href="#">Delete</a> ' +
+                        '</h3>'+
+                        '</div>';
+                }
+            }
+            /***************************************************************************************get one where click???*/
+            /*function fetchBookmark(){
+             // Get bookmarks from localStorage
+             let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+             // Get output id
+             let bookmarksResults = document.getElementById('bookmarksResults');
+             // Build output
+             bookmarksResults.innerHTML = '';
+             for(let i = 0; i < bookmarks.length; i++){
+             if(){
+             let name = bookmarks[i].name;
+             let phone = bookmarks[i].phone;
+
+             let mail = bookmarks[i].mail;
+             let url = bookmarks[i].url;
+
+             bookmarksResults.innerHTML += '<div class="well">'+
+             '<h3>'+name+phone+
+             //---------------------------------------------------------------more
+             ' <a class="btn btn-default" target="_blank" href="'+name+phone+mail+url+'">More</a> ' +
+             ' <a class="btn btn-default" target="_blank" href="'+url+'">Visit</a> ' +
+             ' <a target="_blank" onclick="editBookmark(\''+name+phone+mail+url+'\')" class="btn btn-danger" href="#">Edit</a> ' +
+             ' <a onclick="deleteBookmark(\''+phone+mail+url+'\')" class="btn btn-danger" href="#">Delete</a> ' +
+             '</h3>'+
+             '</div>';
+             }
+             }
+             }*/
+// Validate Form
+            function validateForm(sName, sPhone, sMail, sUrl){
+                if(!sName || !sPhone ||!sMail || !sUrl){
+                    alert('Please fill in the form');
+                    return false;
+                }
+                let expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+                let regex = new RegExp(expression);
+                if(!sUrl.match(regex) || !sPhone.match(regex) ||!sMail.match(regex)){
+                    alert('Please use a valid data!');
+                    return false;
+                }
+                return true;
+            }
+</script>
+<style type="text/css">
+    .marketing,
+    {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    /* Customize container */
+    @media (min-width: 768px) {
+        .container {
+            max-width: 730px;
+        }
+    }
+    .container-narrow > hr {
+        margin: 30px 0;
+    }
+    /* Main marketing message and sign up button */
+    .jumbotron {
+        text-align: center;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .jumbotron .btn {
+        padding: 14px 24px;
+        font-size: 21px;
+    }
+    /* Supporting marketing content */
+    .marketing {
+        margin: 40px 0;
+    }
+    .marketing p + h4 {
+        margin-top: 28px;
+    }
+    /* Responsive: Portrait tablets and up */
+    @media screen and (min-width: 768px) {
+        /* Remove the padding we set earlier */
+        .header,
+        .marketing,
+        .footer {
+            padding-right: 0;
+            padding-left: 0;
+        }
+        /* Space out the masthead */
+        .header {
+            margin-bottom: 30px;
+        }
+        /* Remove the bottom border on the jumbotron for visual effect */
+        .jumbotron {
+            border-bottom: 0;
+        }
+    }
+</style>
+<!--script
+src="https://code.jquery.com/jquery-3.1.1.js"
+integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+crossorigin="anonymous"></script>
+<script type="text/javascript">
+// Набор функций
+var base = {
+// Поиск элементов по классу
+findClass: function(str, node) {
+     if(document.getElementsByClassName) return (node || document).getElementsByClassName(str);
+     else {
+          var node = node || document, list = node.getElementsByTagName('*'), length = list.length, Class = str.split(/\s+/), classes = Class.length, array = [], i, j, key;
+          for(i = 0; i < length; i++) {
+                key = true;
+                for(j = 0; j < classes; j++) if(list[i].className.search('\\b' + Class[j] + '\\b') == -1) key = false;
+                if(key) array.push(list[i]);
+          }
+          return array;
+     }
+},
+// Добавление обработчиков событий
+bind: function(node, type, listener) {
+    if(node.addEventListener) node.addEventListener(type, listener, false);
+    //@cc_on node.attachEvent('on' + type, function() { listener.call(node); });
+},
+// Реализация DOMContentLoaded
+init: [],
+ready: function() {
+    if(!arguments.callee.done) {
+        arguments.callee.done = true;
+        if(this.timer) clearInterval(this.timer);
+        var i, length = this.init.length;
+        for(i = 0; i < length; i++) this.init[i]();
+        this.init = [];
+    }
+},
+check: function() {
+    var _this = this, listener = function() {
+        _this.ready();
+    };
+    if(document.addEventListener) document.addEventListener('DOMContentLoaded', listener, false);
+    if(/KHTML|WebKit/i.test(navigator.userAgent)) this.timer = setInterval(function() {
+        if(/loaded|complete/.test(document.readyState)) base.ready();
+  }, 10);
+    /*@cc_on document.write(unescape('%3CSCRIPT onreadystatechange="if(this.readyState==\'complete\') base.ready()" defer=defer src=\/\/:%3E%3C/SCRIPT%3E')); @*/
+    this.bind(window, 'load', listener);
+}
+};
+
+// Функции для работы с панельками
+var toggler = {
+process: function() {
+    var i, list = base.findClass('toggler1'), length = list.length;
+    for(i = 0; i < length; i++) base.bind(list[i], 'click', this.toggle);
+   list = base.findClass('content1');
+    length = list.length;
+    for(i = 0; i < length; i++) list[i].style.display = 'none';
+
+
+},
+toggle: function() {
+    var content = base.findClass('content', this.parentNode)[0], e = arguments[0] || window.event;
+    if(content.style.display == 'block') {
+        content.style.display = 'none';
+        this.innerHTML = 'Показать';
+    }
+    else {
+        content.style.display = 'block';
+        this.innerHTML = 'Скрыть';
+    }
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+}
+
+};
+
+// Ищем блоки с классом «toggle» по событию DOMContentLoaded
+base.init.push(function() {
+toggler.process();
+});
+
+// Запускаем проверку готовности DOM
+base.check();
+</script-->
+<style type="text/css">
+    .toggle {
+        position: relative;
+        /* background: rgb(250,250,250); */
+        padding: 1em;
+        width: 92.5%;
+        margin: auto;
+        max-width: 30em;
+        height: 92.5%;
+    }
+    .toggle .content {
+        position: relative;
+        padding-top: 5px;
+        text-align: left;
+        border: 1px solid #ccc;
+        background: #eee;
+    }
+    .toggle .toggler {
+        position: relative;
+        font-size: 11px;
+    }
+</style>
+
+<!--div id = "get-one" class="panel">
+	<i class="fa fa-envelope-o" aria-hidden="true"></i>
+	<i class="fa fa-trash-o" aria-hidden="true"></i>
+	<i class="fa fa-pencil" aria-hidden="true"></i>
+	<i class="fa fa-phone" aria-hidden="true"></i>
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+	<i class="fa fa-user-circle" aria-hidden="true"></i>
+        <i class="fa fa-cutlery" aria-hidden="true"></i>
+	<i class="fa fa-book" aria-hidden="true"></i>
+	<i class="fa fa-address-card" aria-hidden="true"></i>
+	<i class="fa fa-youtube" aria-hidden="true"></i>
+	<i class="fa fa-home" aria-hidden="true"></i>
+	<i class="fa fa-camera" aria-hidden="true"></i>
+	<i class="fa fa-user-circle" aria-hidden="true"></i>
+	<i class="fa fa-video-camera" aria-hidden="true"></i>
+	<i class="fa fa-globe" aria-hidden="true"></i>
+	<i class="fa fa-ban" aria-hidden="true"></i>
+	<i class="fa fa-venus-double" aria-hidden="true"></i>
+	<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+	<i class="fa fa-cloud-download" aria-hidden="true"></i>
+	<i class="fa fa-map-marker" aria-hidden="true"></i>
+	<i class="fa fa-film" aria-hidden="true"></i>
+	<i class="fa fa-wifi" aria-hidden="true"></i>
+	<i class="fa fa-play" aria-hidden="true"></i>
+	<i class="fa fa-car" aria-hidden="true"></i>
+	<i class="fa fa-calendar" aria-hidden="true"></i>
+	<i class="fa fa-clock-o" aria-hidden="true"></i>
+	<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+	<i class="fa fa-coffee" aria-hidden="true"></i>
+	<i class="fa fa-money" aria-hidden="true"></i>
+	<i class="fa fa-battery-empty" aria-hidden="true"></i>
+	<i class="fa fa-bus" aria-hidden="true"></i>
+	<i class="fa fa-briefcase" aria-hidden="true"></i>
+	<i class="fa fa-file-image-o" aria-hidden="true"></i>
+	<i class="fa fa-handshake-o" aria-hidden="true"></i>
+	<i class="fa fa-glass" aria-hidden="true"></i>
+	<i class="fa fa-microphone-slash" aria-hidden="true"></i>
+	<i class="fa fa-volume-on" aria-hidden="true"></i>
+	<i class="fa fa-volume-off" aria-hidden="true"></i>
+<div class="btn btn-circle"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+	<div class="btn btn-circle"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+	<div class="btn btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></div>
+	<a href="#" class="btn btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></a>
+  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+	<i class="fa fa-info-circle" aria-hidden="true"></i>
+      <a href="#" class="btn btn-circle"><i class="fa fa-angle-double-down animated"></i></a>
+	</div>
+-->
+
+<!--/div><!--end of contactform-->
+<style>
+    div a {
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+        display:inline-block;
+    }
+    ul {
+        display: inline;
+        margin: 0;
+        padding: 0;
+    }
+    ul li {display: inline-block;}
+    ul li:hover {background: #555;}
+    ul li:hover ul {display: block;}
+    ul li ul {
+        position: absolute;
+        width: 200px;
+        display: none;
+    }
+    ul li ul li {
+        background: #555;
+        display: block;
+    }
+    ul li ul li a {display:block !important;}
+    ul li ul li:hover {background: #666;}
+</style>
+
+<style>
+    html, body{
+        width: 100% !important;
+        /*height: 100% !important;*/
+        margin: 0;
+        padding: 0;
+    }
+    #contactform {
+        position: relative;
+        z-index: 1; /* The z-index should be higher than Google Maps */
+        width: auto;
+        margin: 90px auto 0;
+        padding: 10px;
+        background: black;
+        height: auto;
+        opacity: .60; /* Set the opacity for a slightly transparent Google Form */
+
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 2.5em;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+    }
+
+    #contactform2 {
+        position: relative;
+        z-index: 2;
+        width: 300px;
+        margin: 50px auto 0;
+        padding: 10px;
+        background: rgb(250,250,250);
+        height: auto;
+        opacity: .99; /* Set the opacity for a slightly transparent Google Form */
+
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 1.5em;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+
+    }
+    #mymap {
+        width: 100%;
+        height: 100%;
+        position:absolute;
+        margin:0;
+        padding:0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 0;
+
+    }
+
+</style>
+<style>
+    /*	$start:rgba(66,181,213,0.5);
+$end:rgba(58,210,11,0.5);
+*/
+    body{
+        font-family:sans-serif;
+        background-image: -moz-linear-gradient(30deg, $start 0%, $end 100%);
+        background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,$start), color-stop(100%,$end));
+        background: -webkit-linear-gradient(30deg, $start 0%,$end 100%);
+        background: -o-linear-gradient(30deg, $start 0%,$end 100%);
+        background: -ms-linear-gradient(30deg, $start 0%,$end 100%);
+        background: linear-gradient(30deg, $start 0%,$end 100%);
+    }
+    h1{
+        font-size:1.2em;
+        text-align:center;
+    }
+    input{
+        width:100%;
+        box-sizing:border-box;
+        font-size:1em;
+        margin-top:0.5em;
+        padding:0.5em;
+    }
+    input:focus{
+        outline:none;
+        text-decoration: none;
+        color: #1d9b6c;
+        cursor: pointer;
+    }
+    input::after{
+        width:100%;
+        height:10px;
+        background:red;
+    }
+    #navigation{
+        position: relative;
+        padding: 10px;
+    }
+    .nav-list {
+        width: 92.5%;
+        max-width: 50em;
+        text-align: center;
+        padding: 0;
+        margin: auto;
+    }
+    .nav-list li{
+        list-style:none;
+        display:inline-block;
+        background:rgba(256,256,256,0.5);
+        padding:0.7em;
+        margin:0 0.5em;
+        border: 2px solid white;
+
+        border-radius: 100% !important;
+        color: #ff5833;
+
+        -webkit-transition: background 0.3s ease-in-out;
+        -moz-transition: background 0.3s ease-in-out;
+        transition: background 0.3s ease-in-out;
+    }
+
+    li.active{
+        background-color:rgba(256,256,256,0.95);
+    }
+    .nav-list li:hover,
+    .nav-list li:focus {
+        text-decoration: none;
+        color: /*#1d9b6c;*/#1D9B8E;
+        cursor: pointer;
+    }
+    .panel i.animated {
+        -webkit-transition-property: -webkit-transform;
+        -webkit-transition-duration: 1s;
+        -moz-transition-property: -moz-transform;
+        -moz-transition-duration: 1s;
+    }
+    /*#search, #contact-panel, #show-*/
+    .panel:hover i.animated {
+        -webkit-animation-name: pulse;
+        -moz-animation-name: pulse;
+        -webkit-animation-duration: 1.5s;
+        -moz-animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        -moz-animation-timing-function: linear;
+    }
+    /*3VAR*/
+    .panel{
+        position: relative;
+        background:rgb(250,250,250);
+        padding:1em;
+        width:92.5%;
+        margin:auto;
+        max-width:30em;
+        height: 92.5%;
+    }
+</style>
+<script type="text/javascript">
+
+    /*$('div a').on('click', function() {
+     var href = $(this).attr('href');
+     window.open(href, '_blank').focus();
+     });*/
+    /*создаем обработчик события на саму обертку (в нашем случае это будут #blok_1 и #blok_3). На случай, если ссылки могут появиться внутри блока динамически. Можно повесить событие непосредственно на ссылки, дело от этого не изменится;
+     фильтровать будет только ссылки по их селектору: a:not([href^="#"]) или a[href^="http://"] и a[href^="https://"]; хочется же, чтобы переход был именно по ссылке, а не по якорю.
+     в обработчике остановим обработку события по-умолчанию, чтобы переход внутри страницы не был совершен (надо смотреть, чтобы это не повредило общей логики работы сайта) и совершим переход с помощью window.open();
+     соответственно работать с этой функцией так: inNewWindow(document.getElementById('blok_1')).
+     */function inNewWindow(block1) {
+        block1.on('click', 'a:not([href^="#"])', function(evt) {
+            evt.preventDefault();
+            window.open(evt.target.href, '_blank');
+        })
+    }
+
+</script>
+<script>
+    var map = null;
+    // When the window has finished loading create our google map below
+    google.maps.event.addDomListener(window, 'load', init);
+    google.maps.event.addDomListener(window, 'resize', function() {
+        map.setCenter(new google.maps.LatLng(49.574036, 34.5113945));
+    });
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('mymap'), {
+            center: {lat: 49.574036, lng: 34.5113945},
+            zoom: 6,
+            styles: [
+                {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+                {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+                {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+                {
+                    featureType: 'administrative.locality',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#d59563'}]
+                },
+                {
+                    featureType: 'poi',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#d59563'}]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'geometry',
+                    stylers: [{color: '#263c3f'}]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#6b9a76'}]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'geometry',
+                    stylers: [{color: '#38414e'}]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'geometry.stroke',
+                    stylers: [{color: '#212a37'}]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#9ca5b3'}]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry',
+                    stylers: [{color: '#746855'}]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry.stroke',
+                    stylers: [{color: '#1f2835'}]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#f3d19c'}]
+                },
+                {
+                    featureType: 'transit',
+                    elementType: 'geometry',
+                    stylers: [{color: '#2f3948'}]
+                },
+                {
+                    featureType: 'transit.station',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#d59563'}]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'geometry',
+                    stylers: [{color: '#17263c'}]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'labels.text.fill',
+                    stylers: [{color: '#515c6d'}]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'labels.text.stroke',
+                    stylers: [{color: '#17263c'}]
+                }
+            ]
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('The best sity!');
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3AhxWKKpXIAi9-zWrP61IN-5viMwakzQ&callback=initMap">
+</script>
+<style>
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 1em;
+        margin-bottom: 0.6em;
+        font-size: 3.4em;
+        font-weight: 300;
+
+    }
+    p {
+        font-size: 1.8em;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    a {
+        color: #42DCA3;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    }
+    .intro {
+        display: table;
+        width: 100%;
+        height: auto;
+        padding: 100px 0;
+        text-align: center;
+        color: white;
+        background: url(../img/) no-repeat bottom center scroll;
+        background-color: black;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -o-background-size: cover;
+    }
+    .intro .intro-body {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .intro .intro-body .brand-heading {
+        font-size: 40px;
+    }
+    .intro .intro-body .intro-text {
+        font-size: 18px;
+    }
+    .btn-circle {
+        width: 42px;
+        height: 42px;
+        margin-top: 15px;
+        padding: 7px 16px;
+        border: 2px solid white;
+        border-radius: 100% !important;
+        font-size: 25px;
+        color: white;
+        background: transparent;
+        -webkit-transition: background 0.3s ease-in-out;
+        -moz-transition: background 0.3s ease-in-out;
+        transition: background 0.3s ease-in-out;
+    }
+    .btn {
+        text-transform: uppercase;
+        font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+    }
+    .btn-circle i.animated {
+        -webkit-transition-property: -webkit-transform;
+        -webkit-transition-duration: 1s;
+        -moz-transition-property: -moz-transform;
+        -moz-transition-duration: 1s;
+    }
+    .btn-circle:hover i.animated {
+        -webkit-animation-name: pulse;
+        -moz-animation-name: pulse;
+        -webkit-animation-duration: 1.5s;
+        -moz-animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        -moz-animation-timing-function: linear;
+    }
+    .btn {
+        text-transform: uppercase;
+        font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 600;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        border-radius: 0;
+    }
+    .btn-default {
+        border: 1px solid #42DCA3;
+        color: #42DCA3;
+        background-color: transparent;
+    }
+    .btn-default:hover,
+    .btn-default:focus {
+        border: 1px solid #42DCA3;
+        outline: none;
+        color: black;
+        background-color: #42DCA3;
+    }
+
+
+    @media (min-width: 767px) {
+
+        #mymap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .nav-list li{
+            list-style:none;
+            display:inline-block;
+            background:rgba(256,256,256,0.5);
+            padding:0.7em;
+            margin:0 0.9em;
+            border: 4px solid white;
+        }
+    }
+    @media (min-width: 768px) {
+        .intro {
+            height: 100%;
+            padding: 0;
+        }
+        .intro .intro-body .brand-heading {
+            font-size: 100px;
+        }
+        .intro .intro-body .intro-text {
+            font-size: 26px;
+        }
+        .btn-circle {
+            width: 70px;
+            height: 70px;
+            margin-top: 15px;
+            padding: 7px 16px;
+            border: 2px solid white;
+            border-radius: 100% !important;
+            font-size: 40px;
+            color: white;
+            background: transparent;
+            -webkit-transition: background 0.3s ease-in-out;
+            -moz-transition: background 0.3s ease-in-out;
+            transition: background 0.3s ease-in-out;
+        }
+        .btn-circle:hover,
+        .btn-circle:focus {
+            outline: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+    @media only screen and (max-width: 360px) {
+        h1 {
+            font-size: 3em;
+        }
+        p {
+            font-size: 0.6em;
+        }
+    }
+    @media \0screen {
+        img {
+            width: auto; /* for ie 8 */
+        }
+    }
+
+    /*@media screen and (max-width: 360px){}*/
+</style>
+</body>
+</html>
